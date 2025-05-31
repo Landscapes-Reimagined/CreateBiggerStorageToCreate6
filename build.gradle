@@ -136,9 +136,17 @@ repositories {
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
-    // flatDir {
-    //     dir 'libs'
-    // }
+    flatDir {
+     dir 'libs'
+    }
+
+    maven {
+        url "https://cursemaven.com"
+    }
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+    maven { url = "https://maven.tterrag.com" } // Registrate
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // ForgeConfigAPIPort
+
 }
 
 dependencies {
@@ -159,6 +167,23 @@ dependencies {
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
+
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.5.0-rc.2")) {
+        jarJar.ranged(it, "[0.5.0-rc.2,)")
+    }
+
+    implementation(fg.deobf("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false })
+    implementation(fg.deobf("net.createmod.ponder:Ponder-Forge-${minecraft_version}:${ponder_version}"))
+    compileOnly(fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-${minecraft_version}:${flywheel_version}"))
+    runtimeOnly(fg.deobf("dev.engine-room.flywheel:flywheel-forge-${minecraft_version}:${flywheel_version}"))
+    implementation(fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}"))
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+    implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
+
+
+
+    implementation fg.deobf("locallibs:Create-Better-Storages-Forge:${minecraft_version}-${better_storage_version}")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

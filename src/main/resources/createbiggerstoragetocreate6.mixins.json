@@ -5,9 +5,17 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "CreateBiggerStorageToCreate6.refmap.json",
   "mixins": [
+    "BSBlockMixin",
+    "BSMovementChecksMixin",
+    "GeneralFixerMultiTargetMixin"
   ],
   "client": [
+    "SeeTroughVaultRendererMixin"
   ],
+  "plugin": "com.landscapesreimagined.createbiggerstoragetocreate6.mixin.MixinConfigPlugin",
+  "mixinextras": {
+    "minVersion": "0.5.0-rc.2"
+  },
   "injectors": {
     "defaultRequire": 1
   }
